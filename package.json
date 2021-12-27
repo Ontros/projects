@@ -2,7 +2,7 @@
   "name": "project-hub",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://ontros.github.io/projects",
+  "homepage": "http://Ontros.github.io/projects",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
