@@ -47,13 +47,13 @@ function Project(params: ProjectParams) {
 }
 
 function App() {
-  var popupTimeout = 2000
+  var popupTimeout = 200
 
   //TODO: 1) CSS vice tlacitek 2) switchovani Langu 3) odebrat double kod na zobrazovani projektu
 
-  const [projectDivs, setProjectDivs] = useState<JSX.Element[]>([])
   const [visibleProjectNum, setVisibleProjectNum] = useState(0)
   const [lang, setLang] = useState(0) //0 = czech; 1 = english
+
   const projects: Project[] = [
     {
       title: 'OntroBot',
@@ -74,19 +74,8 @@ function App() {
       setTimeout(() => {
         setVisibleProjectNum(index + 1)
       }, index * popupTimeout)
-      appendToProjectDivs(
-        <Project project={project} index={index} visibleProjectNum={visibleProjectNum} lang={lang} />
-      )
     })
   }, [])
-
-  function appendToProjectDivs(appendix: JSX.Element) {
-    var tempProjectDivs = projectDivs
-    tempProjectDivs.push(
-      appendix
-    )
-    setProjectDivs(tempProjectDivs)
-  }
 
   return (
     <div className="App">
@@ -108,28 +97,3 @@ function App() {
 }
 
 export default App;
-// <div className={`project`} key={index}>
-//   <div className="project-title">{project.title}</div>
-//   <div className="project-description">{Lang(lang, project.description)}</div>
-//   {project.buttons.map((button) => {
-//     return <div className="project-button" onClick={() => {
-//       window.location.href = button.redirect
-//     }}>{Lang(lang, button.text)}</div>
-//   })/* <div className="project-button" onClick={() => {
-//     window.location.href = project.redirect
-//   }}>{Lang(lang, project.buttonText)}</div> */}
-// </div>
-
-//     <div className={`project ${index < visibleProjectNum ? 'project-visible' : ''}`} key={index}>
-//       <div className="project-title">{project.title}</div>
-//       <div className="project-description">{Lang(lang, project.description)}</div>
-//       {project.buttons.map((button) => {
-  //         return <a href={button.redirect}><div className="project-button"
-  //         // onClick={() => {
-    //         //   window.location.href = button.redirect
-    //         // }}
-    //         >{Lang(lang, button.text)}</div></a>
-    //       })/* <div className="project-button" onClick={() => {
-      //   window.location.href = project.redirect
-    // }}>{Lang(lang, project.buttonText)}</div> */}
-    //     </div>
