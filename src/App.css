@@ -16,15 +16,17 @@ h1, h2, h3 {
 }
 
 h1 {
-  font-size: 50px;
+  font-size: 65px;
 }
 
 @keyframes slideFromBottom {
   0% {
-    transform: translateY(100vh);
+    transform: translateY(60vh);
+    opacity: 0;
   }
   100% {
     transform: translateY(0);
+    opacity: 1;
   }
 }
 
@@ -43,6 +45,12 @@ h1 {
   overflow: none;
 }
 
+hr {
+  color: var(--primary);
+  margin-top: 0;
+  margin-bottom: 2em;
+}
+
 .project {
   background-color: var(--background);
   border: .2em solid var(--primary-dark);
@@ -54,17 +62,18 @@ h1 {
   padding: .5em;
   max-width: min(90%, 20em);
   opacity: 0;
+  transition: 0.5s ease-out;
 }
 
 .project-visible {
-  animation: slideFromBottom ease 3s;
+  /* animation: slideFromBottom ease 0.35s; */
+  animation: slideFromBottom var(--popup-bezier) 0.5s;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
   opacity: 1;
 }
 
 .project:hover {
-  transition: 0.5s ease-out;
   background-color: var(--background-light);
 }
 
@@ -91,7 +100,7 @@ h1 {
   color: var(--background);
   background-color: var(--primary);
   font-weight: 600;
-  transition: 0.2s ease-out;
+  transition: 0.4s ease-out;
 }
 
 .project-button:active {
@@ -104,4 +113,9 @@ h1 {
 
 .hidden {
   opacity: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
 }

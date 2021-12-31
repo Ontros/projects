@@ -1,10 +1,9 @@
 :root {
     --background: #16181a;
-    /* --background: #282c34; */
-    /* --background-light: #1b1d1f; */
     --background-light: #2a2d30;
     --background-dark: #0d0e0f;
     --primary: #00a2e2;
     --primary-light: #45BAE8;
-    --primary-dark: #007EB0;
+    --primary-dark: #007EB0;  
+    --popup-bezier: cubic-bezier(.42,.12,.38,1.37);
 }
