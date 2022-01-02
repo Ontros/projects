@@ -1,31 +1,36 @@
 import React, { useEffect, useState } from 'react';
-import './Colors.css'
+import './Colors.css';
 import './App.css';
+import FlagCZ from './cz.svg'
+import FlagGB from './gb.svg'
+//@ts-expect-error
+import detectBrowserLanguage from 'detect-browser-language'
 
-function Lang(lang: number, array: string | string[]) {
+function Lang(lang: number, array: string[]): string {
   if (array.length === 1) {
-    return array
+    return array[0]
   }
+
   var ans = array[lang]
   if (ans) {
-    console.log(array)
     return ans
   }
   return "Language error"
 }
+
 interface Button {
   text: string[];
   redirect: string;
 }
 
-interface Project {
-  title: string;
+interface ProjectInterface {
+  title: string[];
   description: string[];
   buttons: Button[];
 }
 
 interface ProjectParams {
-  project: Project;
+  project: ProjectInterface;
   index: number;
   lang: number;
   visibleProjectNum: number;
@@ -35,7 +40,7 @@ function Project(params: ProjectParams) {
   const { project, index, lang, visibleProjectNum } = params
   return (
     <div className={`project ${index < visibleProjectNum ? 'project-visible' : ''}`} key={index}>
-      <div className="project-title">{project.title}</div>
+      <div className="project-title">{Lang(lang, project.title)}</div>
       <div className="project-description">{Lang(lang, project.description)}</div>
       {project.buttons.map((button) => {
         return <a href={button.redirect}><div className="project-button"
@@ -46,17 +51,46 @@ function Project(params: ProjectParams) {
   )
 }
 
+interface LangProps {
+  lang: number;
+  setLang: (arg0: number) => void;
+}
+
+function LanguageSelect(props: LangProps) {
+  const { lang, setLang } = props
+
+  var languages = [{
+    name: 'English',
+    flag: FlagGB
+  },
+  {
+    name: 'Česky',
+    flag: FlagCZ
+  }
+  ]
+
+  return (
+    <div className="language-selection" onClick={() => {
+      setLang(lang < languages.length - 1 ? lang + 1 : 0)
+    }}>
+      <img src={languages[lang].flag} alt="Flag" className='flag' />
+      {languages[lang].name}
+    </div>
+  )
+}
+
 function App() {
   var popupTimeout = 200
 
-  //TODO: 1) CSS vice tlacitek 2) switchovani Langu 3) odebrat double kod na zobrazovani projektu
+  //TODO: 1) clean up
+  console.log(detectBrowserLanguage().substring(0, 2).toLowerCase() === 'cs' ? 0 : 1)
 
   const [visibleProjectNum, setVisibleProjectNum] = useState(0)
-  const [lang, setLang] = useState(0) //0 = czech; 1 = english
+  const [lang, setLang] = useState(detectBrowserLanguage().substring(0, 2).toLowerCase() === 'cs' ? 1 : 0) //1 = czech; 0 = english
 
-  const projects: Project[] = [
+  const projects: ProjectInterface[] = [
     {
-      title: 'OntroBot',
+      title: ['OntroBot'],
       description: ['My personal discord bot (currently offline)', 'Můj osobní discord bot (aktuálně offline)'],
       buttons: [{
         text: ['View source code', 'Zobrazit zdrojový kód'],
@@ -67,7 +101,31 @@ function App() {
         redirect: 'https://discordapp.com/oauth2/authorize?client_id=610830662353682464&scope=bot&permissions=8'
       }]
     },
+    {
+      title: ['Testing', 'Zkoušení'],
+      description: ['Used for learning some school things', 'Stránka na učení'],
+      buttons: [{
+        text: ['View source code', 'Zobrazit zdrojový kód'],
+        redirect: 'https://github.com/Ontros/projects/tree/master',
+      },
+      {
+        text: ['Take a look', 'Zobrazit stránku'],
+        redirect: 'https://discordapp.com/oauth2/authorize?client_id=610830662353682464&scope=bot&permissions=8'
+      }]
+    },
+    {
+      title: ['This page', 'Tahle stránka'],
+      description: ['The site you see right now', 'Stránka, kterou právě vidíte'],
+      buttons: [{
+        text: ['View source code', 'Zobrazit zdrojový kód'],
+        redirect: 'https://github.com/Ontros/projects/tree/master',
+      }]
+    },
   ]
+
+  //TODO: create utility.ts
+
+  document.title = Lang(lang, ["Ontro - Projects", "Ontro - Projekty"])
 
   useEffect(() => {
     projects.forEach((project, index) => {
@@ -81,6 +139,7 @@ function App() {
     <div className="App">
       <div className="Header">
         <h1>Ontro</h1>
+        <LanguageSelect lang={lang} setLang={setLang} />
       </div>
       <hr />
       <div className="projects">
