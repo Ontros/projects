@@ -69,11 +69,11 @@ function App() {
       description: ['Used for learning some school things', 'Stránka na učení'],
       buttons: [{
         text: ['View source code', 'Zobrazit zdrojový kód'],
-        redirect: 'https://github.com/Ontros/projects/tree/master',
+        redirect: 'https://github.com/Ontros/zkouseni/tree/master',
       },
       {
         text: ['Take a look', 'Zobrazit stránku'],
-        redirect: 'https://discordapp.com/oauth2/authorize?client_id=610830662353682464&scope=bot&permissions=8'
+        redirect: 'https://ontros.github.io/zkouseni'
       }]
     },
     {
