@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Colors.css';
 import './App.css';
-import FlagCZ from './cz.svg'
-import FlagGB from './gb.svg'
 //@ts-expect-error
 import detectBrowserLanguage from 'detect-browser-language'
 import { Lang, LanguageSelect } from './Utils'
@@ -84,9 +82,17 @@ function App() {
         redirect: 'https://github.com/Ontros/projects/tree/master',
       }]
     },
+    {
+      title: ['Economy game', 'Ekonomická hra'],
+      description: ['A monopoly like game, because my friends do not want to play Business Tour, because they think it is rigged',
+        'Hra podobná monopoly, protože mojí kamarádi nechcou hrát Business Tour, protože si myslí, že je zmanipulované'],
+      buttons: [{
+        text: ['Coming soon', 'Dělám na tom'],
+        redirect: 'https://ontros.github.io'
+      }]
+    }
   ]
 
-  //TODO: create utility.ts
 
   document.title = Lang(lang, ["Ontro - Projects", "Ontro - Projekty"])
 
